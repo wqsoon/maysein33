@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>对不起，亲爱的！</title>
+    <title>你有一封未读道歉信息</title>
     <style>
         body {
             display: flex;
@@ -18,22 +18,22 @@
         }
         .container {
             position: relative;
-            width: 90%; /* 更宽以适应手机 */
+            width: 90%;
             max-width: 400px;
-            background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
         .envelope {
             cursor: pointer;
-            width: 80%; /* 更小以适应手机 */
+            width: 80%;
             margin: 0 auto;
         }
         .gif {
             display: none;
             margin: 20px auto;
-            width: 80%; /* 适应手机 */
+            width: 80%;
         }
         .message {
             display: none;
@@ -42,11 +42,29 @@
             padding: 20px;
             background-color: white;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-shadow: 0 0 10px rgba(255, 76, 76, 0.8);
+        }
+        .message.show {
+            display: block;
+            opacity: 1;
         }
         .heart {
             color: red;
             font-size: 50px;
             animation: heartbeat 1.5s infinite;
+            cursor: pointer;
+        }
+        .final-message {
+            display: none;
+            border: 2px solid #ff4c4c;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            text-shadow: 0 0 10px rgba(255, 76, 76, 0.8);
         }
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
@@ -67,23 +85,52 @@
         <img src="https://media.tenor.com/v4xmu4vSzQ4AAAAM/love-letter-love-letters.gif" alt="信封" class="envelope" onclick="showGif()" />
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb6VIuxgDZcqiAXNQ0zA3w2Wn36MFGx1pG5g&s" alt="道歉GIF" class="gif" id="popupGif" onclick="showMessage()" />
         <div class="message" id="apologyMessage">
-            <h1>亲爱的，我错了！</h1>
-            <p>我不该让你生气，</p>
-            <p>请给我一个机会补偿你！</p>
-            <div class="heart">❤️</div>
-            <p>爱你永远！</p>
+            <h1>美欣，是我错了</h1>
+            <p>我不该去这样的地方</p>
+            <p>让你生气，不开心</p>
+            <p>我有认真反省了</p>
+            <p>原谅我好不好</p>
+            <div class="heart" onclick="showForgivenessGif()">❤️</div>
+            <p>请点击❤️</p>
         </div>
+        <img src="https://media1.tenor.com/m/QPsPx1kTI1AAAAAC/please-forgive-me-love-you.gif" alt="请求原谅的GIF" class="gif" id="forgivenessGif" onclick="showFinalMessage()" />
+        
+        <div class="final-message" id="finalMessage">
+            <h2>我想和你见个面赔罪</h2>
+            <p>请给个机会，让我亲自向你道歉</p>
+        </div>
+        <img src="https://s1.aigei.com/src/img/gif/5c/5cb490abad8b48e78f048ee047e447a9.gif?e=1735488000&token=P7S2Xpzfz11vAkASLTkfHN7Fw-oOZBecqeJaxypL:5ZrUyqbzHOeimIFLDPnjvk8bm38=" alt="请求原谅的GIF" class="gif" id="finalGif" />
     </div>
 
     <script>
         function showGif() {
             document.querySelector('.envelope').style.display = 'none'; // 隐藏信封
             document.getElementById('popupGif').style.display = 'block'; // 显示第二个GIF
+            
+            // 2秒后自动显示道歉信息
+            setTimeout(showMessage, 3000);
         }
+
         function showMessage() {
-            document.getElementById('apologyMessage').style.display = 'block'; // 显示道歉信息
+            const message = document.getElementById('apologyMessage');
+            message.classList.add('show'); // 添加显示类
             document.getElementById('popupGif').style.display = 'none'; // 隐藏第二个GIF
+        }
+
+        function showForgivenessGif() {
+            document.getElementById('forgivenessGif').style.display = 'block'; // 显示请求原谅的GIF
+            const message = document.getElementById('apologyMessage');
+            message.style.display = 'none'; // 隐藏道歉信息
+        }
+
+        function showFinalMessage() {
+            document.getElementById('finalMessage').style.display = 'block'; // 显示最终信息
+            document.getElementById('forgivenessGif').style.display = 'none'; // 隐藏请求原谅的GIF
+            
+            // 显示最终的GIF
+            document.getElementById('finalGif').style.display = 'block'; 
         }
     </script>
 </body>
 </html>
+
